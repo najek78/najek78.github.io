@@ -24,24 +24,24 @@ body::after {
 
   background-image:
 
-    /* ⭐ MAŁE GWIAZDY (dużo) */
+    
     radial-gradient(1px 1px at 10% 20%, rgba(255,215,0,0.5), transparent),
     radial-gradient(1px 1px at 30% 80%, rgba(255,215,0,0.5), transparent),
     radial-gradient(1px 1px at 60% 40%, rgba(255,215,0,0.5), transparent),
     radial-gradient(1px 1px at 80% 70%, rgba(255,215,0,0.5), transparent),
     radial-gradient(1px 1px at 50% 10%, rgba(255,215,0,0.5), transparent),
 
-    /* ⭐ ŚREDNIE */
+    
     radial-gradient(2px 2px at 20% 60%, rgba(255,215,0,0.7), transparent),
     radial-gradient(2px 2px at 75% 25%, rgba(255,215,0,0.7), transparent),
     radial-gradient(2px 2px at 40% 50%, rgba(255,215,0,0.7), transparent),
 
-    /* ⭐ DUŻE */
+    
     radial-gradient(3px 3px at 65% 75%, rgba(255,215,0,0.9), transparent),
     radial-gradient(3px 3px at 15% 40%, rgba(255,215,0,0.9), transparent);
 }
 
-/* 🌌 WARSTWA GWIAZD */
+
 .stars {
   position: fixed;
   inset: 0;
@@ -49,7 +49,7 @@ body::after {
   z-index: 0;
 }
 
-/* ⭐ MAŁE GWIAZDY (setki) */
+
 .stars::before {
   content: "";
   position: absolute;
@@ -67,7 +67,7 @@ body::after {
     1450px 200px #D3AF37, 1650px 400px #D3AF37, 1850px 600px #D3AF37;
 }
 
-/* ⭐ WIĘKSZE GWIAZDY */
+
 .stars::after {
   content: "";
   position: absolute;
@@ -107,7 +107,7 @@ body::after {
   animation: twinkle 7s infinite alternate;
 }
 
-/* 👤 AVATAR W ROGU */
+
 .user-avatar {
   position: fixed;
   top: 20px;
@@ -118,7 +118,7 @@ body::after {
   box-shadow: 0 0 15px rgba(255,215,0,0.5);
 }
 
-/* 🏆 SIATKA 3x3 */
+
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -128,7 +128,7 @@ body::after {
   box-sizing: border-box;
 }
 
-/* ⭐ KAFELKI */
+
 .card {
   background: rgba(255,215,0,0.07);
   border: 2px solid #D3AF37;
@@ -140,8 +140,8 @@ body::after {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;   /* 🔥 klucz */
-  text-align: center;    /* 🔥 klucz */
+  align-items: center;   
+  text-align: center;    
 
   height: 140px;
 }
@@ -159,7 +159,7 @@ body::after {
   text-align: center;
 }
 
-/* ⭐ PRZYCISKI */
+
 button {
   background: #D3AF37;
   color: #0b1b3a;
@@ -221,7 +221,7 @@ body::after {
   gap: 12px;
 }
 
-/* 🟢 ZAGŁOSOWANO */
+
 .card.voted {
   border-color: #00ff9c;
   box-shadow:
@@ -229,7 +229,7 @@ body::after {
     0 0 28px rgba(0,255,156,0.35);
 }
 
-/* 🔴 NIE ZAGŁOSOWANO */
+
 .card.not-voted {
   border-color: #ff3b3b;
   box-shadow:
@@ -253,7 +253,7 @@ body::after {
 <div class="stars"></div>
 <div class="stars2"></div>
 
-<!-- 👤 AVATAR -->
+
 <img id="avatar" class="user-avatar">
 
 <div class="top-buttons">
@@ -268,7 +268,7 @@ body::after {
 
 <h1 class="title">KATEGORIE</h1>
 
-<!-- 🏆 GRID -->
+
 <div id="categories" class="grid"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -281,7 +281,7 @@ const supabaseClient = createClient(
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ4YmR2d2p4dWRseHlibmZzdWduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzExODQyODEsImV4cCI6MjA4Njc2MDI4MX0.ZJG2DTwhcj8nG9eyUN1B3Zuf2IFIIZcq1rYpsYptrBk"
 );
 
-// 🔒 SPRAWDŹ LOGOWANIE + AVATAR
+
 async function checkUser() {
   const { data: { user } } = await supabaseClient.auth.getUser();
 
@@ -294,7 +294,7 @@ async function checkUser() {
     user.user_metadata.avatar_url;
 }
 
-// 📥 POBIERZ KATEGORIE
+
 async function loadCategories() {
   const { data: { user } } = await supabaseClient.auth.getUser();
 
@@ -336,7 +336,7 @@ function goToVote(categoryId) {
   window.location.href = "vote.html?category=" + categoryId;
 }
 
-// 🚪 WYLOGOWANIE 
+ 
 async function logout() { 
   await supabaseClient.auth.signOut();
   window.location.href = "index.html"; 
@@ -348,3 +348,4 @@ loadCategories();
 
 </body>
 </html>
+
