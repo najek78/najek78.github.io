@@ -7,85 +7,65 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
+
 body{
   margin:0;
-  background: radial-gradient(circle at center,#0b1b3a,#020817);
   color:#D3AF37;
   font-family:'Cinzel',serif;
   display:flex;
   flex-direction:column;
   align-items:center;
+  min-height:100vh;
+
+  background: linear-gradient(
+    130deg,
+    #020817,
+    #0b1b3a,
+    #0a0f2e,
+    #1a093d,
+    #020817
+  );
+
+  background-size: 400% 400%;
+  animation: gradientMove 18s ease infinite;
 }
 
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+
+  background:
+    radial-gradient(circle at 25% 30%, rgba(255,215,0,0.08), transparent 40%),
+    radial-gradient(circle at 75% 70%, rgba(255,215,0,0.06), transparent 45%),
+    radial-gradient(circle at 60% 20%, rgba(255,215,0,0.05), transparent 35%);
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  top:35%;
+  left:50%;
+  width:900px;
+  height:900px;
+  transform:translate(-50%,-50%);
+  pointer-events:none;
+
+  background: radial-gradient(circle,
+    rgba(255,215,0,0.12),
+    transparent 65%);
+}
+
+@keyframes gradientMove{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
 
 h1{
   margin-top:20px;
   letter-spacing:4px;
-}
-
-
-.summary-card{
-  width:900px;
-  background:rgba(255,215,0,0.06);
-  border:2px solid #D3AF37;
-  border-radius:18px;
-  padding:18px;
-  margin-top:25px;
-  box-shadow:0 0 18px rgba(255,215,0,0.25);
-}
-
-
-.category-title{
-  font-size:40px;
-  font-weight:700;
-  letter-spacing:3px;
-  text-align:center;
-  margin-bottom:18px;
-
-  color:#FFD700;
-
-  text-shadow:
-    0 0 8px rgba(255,215,0,0.7),
-    0 0 18px rgba(255,215,0,0.5);
-}
-
-
-.ranking-row{
-  display:flex;
-  justify-content:center;
-  gap:30px;
-}
-
-
-.rank-slot{
-  text-align:center;
-}
-
-
-.rank-avatar{
-  width:80px;
-  border-radius:50%;
-  border:3px solid #D3AF37;
-  box-shadow:0 0 12px rgba(255,215,0,0.5);
-  margin-top:6px;
-}
-
-
-button{
-  background:#D3AF37;
-  color:#0b1b3a;
-  border:none;
-  padding:14px 36px;
-  border-radius:12px;
-  font-family:'Cinzel',serif;
-  font-weight:bold;
-  cursor:pointer;
-  margin:40px 0;
-}
-
-button:hover{
-  background:#ffd700;
-  transform:scale(1.05);
 }
 
 .summary-card{
@@ -107,6 +87,55 @@ button:hover{
     opacity:1;
     transform:translateY(0);
   }
+}
+
+.category-title{
+  font-size:40px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-align:center;
+  margin-bottom:18px;
+
+  color:#FFD700;
+
+  text-shadow:
+    0 0 8px rgba(255,215,0,0.7),
+    0 0 18px rgba(255,215,0,0.5);
+}
+
+.ranking-row{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+}
+
+.rank-slot{
+  text-align:center;
+}
+
+.rank-avatar{
+  width:80px;
+  border-radius:50%;
+  border:3px solid #D3AF37;
+  box-shadow:0 0 12px rgba(255,215,0,0.5);
+  margin-top:6px;
+}
+
+button{
+  background:#D3AF37;
+  color:#0b1b3a;
+  border:none;
+  padding:14px 36px;
+  border-radius:12px;
+  font-family:'Cinzel',serif;
+  font-weight:bold;
+  cursor:pointer;
+  margin:40px 0;
+}
+
+button:hover{
+  background:#ffd700;
+  transform:scale(1.05);
 }
 
 </style>
@@ -154,25 +183,20 @@ async function loadSummary() {
 
   votes.forEach((v, index) => {
 
-  const category = categories.find(c => c.id == v.category_id);
+    const category = categories.find(c => c.id == v.category_id);
+    const getNominee = (id) => nominees.find(n => n.id == id);
 
-  const getNominee = (id) =>
-    nominees.find(n => n.id == id);
+    const ranks = [
+      getNominee(v.rank1),
+      getNominee(v.rank2),
+      getNominee(v.rank3),
+      getNominee(v.rank4),
+      getNominee(v.rank5)
+    ];
 
-  const ranks = [
-    getNominee(v.rank1),
-    getNominee(v.rank2),
-    getNominee(v.rank3),
-    getNominee(v.rank4),
-    getNominee(v.rank5)
-  ];
-
-  const card = document.createElement("div");
-  card.className = "summary-card";
-
-  
-  card.style.animationDelay = (index * 0.2) + "s";
-
+    const card = document.createElement("div");
+    card.className = "summary-card";
+    card.style.animationDelay = (index * 0.2) + "s";
 
     let rankingHTML = "";
 
@@ -190,7 +214,6 @@ async function loadSummary() {
 
     card.innerHTML = `
       <div class="category-title">${category.name}</div>
-
       <div class="ranking-row">
         ${rankingHTML}
       </div>
@@ -205,4 +228,3 @@ loadSummary();
 
 </body>
 </html>
-
