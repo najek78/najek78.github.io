@@ -7,118 +7,58 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
+
 body {
   margin: 0;
   height: 100vh;
-  background: radial-gradient(circle at center, #0b1b3a, #020817);
+  overflow: hidden;
   color: #D3AF37;
   font-family: 'Cinzel', serif;
-  background:
-    radial-gradient(circle at center, #0b1b3a 0%, #020817 75%),
-    radial-gradient(circle at center, rgba(0,0,0,0.6), transparent 70%);
+
+  background: linear-gradient(
+    130deg,
+    #020817,
+    #0b1b3a,
+    #0a0f2e,
+    #1a093d,
+    #020817
+  );
+
+  background-size: 400% 400%;
+  animation: gradientMove 18s ease infinite;
 }
 
 body::before {
   content: "";
   position: fixed;
-  top: 40%;
-  left: 50%;
-  width: 900px;
-  height: 900px;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(255,215,0,0.15), transparent 70%);
+  inset: 0;
   pointer-events: none;
+
+  background:
+    radial-gradient(circle at 25% 30%, rgba(255,215,0,0.08), transparent 40%),
+    radial-gradient(circle at 75% 70%, rgba(255,215,0,0.06), transparent 45%),
+    radial-gradient(circle at 60% 20%, rgba(255,215,0,0.05), transparent 35%);
 }
 
 body::after {
   content: "";
   position: fixed;
-  inset: 0;
+  top: 35%;
+  left: 50%;
+  width: 900px;
+  height: 900px;
+  transform: translate(-50%, -50%);
   pointer-events: none;
 
-  background-image:
-
-    
-    radial-gradient(1px 1px at 10% 20%, rgba(255,215,0,0.5), transparent),
-    radial-gradient(1px 1px at 30% 80%, rgba(255,215,0,0.5), transparent),
-    radial-gradient(1px 1px at 60% 40%, rgba(255,215,0,0.5), transparent),
-    radial-gradient(1px 1px at 80% 70%, rgba(255,215,0,0.5), transparent),
-    radial-gradient(1px 1px at 50% 10%, rgba(255,215,0,0.5), transparent),
-
-    
-    radial-gradient(2px 2px at 20% 60%, rgba(255,215,0,0.7), transparent),
-    radial-gradient(2px 2px at 75% 25%, rgba(255,215,0,0.7), transparent),
-    radial-gradient(2px 2px at 40% 50%, rgba(255,215,0,0.7), transparent),
-
-    
-    radial-gradient(3px 3px at 65% 75%, rgba(255,215,0,0.9), transparent),
-    radial-gradient(3px 3px at 15% 40%, rgba(255,215,0,0.9), transparent);
+  background: radial-gradient(circle,
+    rgba(255,215,0,0.18),
+    transparent 65%);
 }
 
-
-.stars {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-}
-
-
-.stars::before {
-  content: "";
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  background: transparent;
-
-  box-shadow:
-    100px 200px #D3AF37, 300px 400px #D3AF37, 500px 150px #D3AF37,
-    800px 600px #D3AF37, 1200px 300px #D3AF37, 1600px 500px #D3AF37,
-    200px 900px #D3AF37, 700px 120px #D3AF37, 900px 800px #D3AF37,
-    1300px 200px #D3AF37, 1500px 700px #D3AF37, 50px 600px #D3AF37,
-    250px 100px #D3AF37, 450px 900px #D3AF37, 650px 300px #D3AF37,
-    850px 500px #D3AF37, 1050px 700px #D3AF37, 1250px 900px #D3AF37,
-    1450px 200px #D3AF37, 1650px 400px #D3AF37, 1850px 600px #D3AF37;
-}
-
-
-.stars::after {
-  content: "";
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: transparent;
-
-  box-shadow:
-    200px 300px rgba(255,215,0,0.9),
-    600px 700px rgba(255,215,0,0.9),
-    1000px 500px rgba(255,215,0,0.9),
-    1400px 800px rgba(255,215,0,0.9),
-    1700px 200px rgba(255,215,0,0.9);
-}
-
-.stars2 {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-}
-
-.stars2::before {
-  content: "";
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: transparent;
-
-  box-shadow:
-    150px 350px #D3AF37,
-    450px 650px #D3AF37,
-    750px 250px #D3AF37,
-    1150px 550px #D3AF37,
-    1450px 150px #D3AF37,
-    1750px 450px #D3AF37;
-
-  animation: twinkle 7s infinite alternate;
+@keyframes gradientMove {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 
@@ -130,20 +70,20 @@ body::after {
   width: 560px;
   max-width: 90vw;
   filter:
-    drop-shadow(0 0 25px rgba(255,215,0,0.5))
-    drop-shadow(0 0 60px rgba(255,215,0,0.3));
+    drop-shadow(0 0 25px rgba(255,215,0,0.6))
+    drop-shadow(0 0 80px rgba(255,215,0,0.35));
   pointer-events: none;
 }
 
 
 .ui {
   position: fixed;
-  top: 50%;
+  top: 52%;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
+  animation: fadeIn 1.2s ease forwards;
 }
-
 
 button {
   background: #D3AF37;
@@ -165,16 +105,12 @@ button:hover {
   transform: scale(1.06);
 }
 
-
 .avatar {
   width: 110px;
   border-radius: 50%;
   margin: 20px 0;
   border: 4px solid #D3AF37;
-}
-
-.ui {
-  animation: fadeIn 1.2s ease forwards;
+  box-shadow: 0 0 18px rgba(255,215,0,0.6);
 }
 
 @keyframes fadeIn {
@@ -188,40 +124,12 @@ button:hover {
   }
 }
 
-body::after {
-  animation: twinkle 6s infinite alternate;
-}
-
-@keyframes twinkle {
-  from { opacity: 0.7; }
-  to   { opacity: 1; }
-}
-
-.stars::before {
-  animation: twinkle 3s infinite alternate;
-}
-
-.stars::after {
-  animation: twinkle 5s infinite alternate;
-}
-
-@keyframes twinkle {
-  0%   { opacity: 0.3; }
-  50%  { opacity: 1; }
-  100% { opacity: 0.4; }
-}
-
 </style>
 </head>
 
 <body>
-<div class="stars"></div>
-<div class="stars2"></div>
-
-
 
 <img src="logo.png" class="logo">
-
 
 <div class="ui">
 
@@ -241,13 +149,11 @@ const supabaseClient = createClient(
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ4YmR2d2p4dWRseHlibmZzdWduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzExODQyODEsImV4cCI6MjA4Njc2MDI4MX0.ZJG2DTwhcj8nG9eyUN1B3Zuf2IFIIZcq1rYpsYptrBk"
 );
 
-
 document.getElementById("login").onclick = async () => {
   await supabaseClient.auth.signInWithOAuth({
     provider: "discord"
   });
 };
-
 
 supabaseClient.auth.onAuthStateChange(async (event, session) => {
   if (session?.user) {
@@ -255,12 +161,10 @@ supabaseClient.auth.onAuthStateChange(async (event, session) => {
   }
 });
 
-
 async function loadUser() {
   const { data: { user } } = await supabaseClient.auth.getUser();
   if (user) showUser(user);
 }
-
 
 async function showUser(user) {
   document.getElementById("login").style.display = "none";
@@ -277,14 +181,12 @@ async function showUser(user) {
     <button onclick="logout()">Wyloguj</button>
   `;
 
-  
   await supabaseClient.from("users").upsert({
     id: user.id,
     username: name,
     avatar_url: avatar
   });
 }
-
 
 async function logout() {
   await supabaseClient.auth.signOut();
@@ -293,7 +195,6 @@ async function logout() {
 
 loadUser();
 
-
 function goToCategories() {
   window.location.href = "categories.html";
 }
@@ -301,4 +202,3 @@ function goToCategories() {
 
 </body>
 </html>
-
