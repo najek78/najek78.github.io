@@ -7,106 +7,59 @@
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
 
 <style>
+
 body {
   margin: 0;
   height: 100vh;
-  background: radial-gradient(circle at center, #0b1b3a, #020817);
+  overflow: hidden;
   color: #D3AF37;
   font-family: 'Cinzel', serif;
-  overflow: hidden;
+
+  background: linear-gradient(
+    130deg,
+    #020817,
+    #0b1b3a,
+    #0a0f2e,
+    #1a093d,
+    #020817
+  );
+
+  background-size: 400% 400%;
+  animation: gradientMove 18s ease infinite;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+
+  background:
+    radial-gradient(circle at 25% 30%, rgba(255,215,0,0.08), transparent 40%),
+    radial-gradient(circle at 75% 70%, rgba(255,215,0,0.06), transparent 45%),
+    radial-gradient(circle at 60% 20%, rgba(255,215,0,0.05), transparent 35%);
 }
 
 body::after {
   content: "";
   position: fixed;
-  inset: 0;
+  top: 35%;
+  left: 50%;
+  width: 900px;
+  height: 900px;
+  transform: translate(-50%, -50%);
   pointer-events: none;
 
-  background-image:
-
-    
-    radial-gradient(1px 1px at 10% 20%, rgba(255,215,0,0.5), transparent),
-    radial-gradient(1px 1px at 30% 80%, rgba(255,215,0,0.5), transparent),
-    radial-gradient(1px 1px at 60% 40%, rgba(255,215,0,0.5), transparent),
-    radial-gradient(1px 1px at 80% 70%, rgba(255,215,0,0.5), transparent),
-    radial-gradient(1px 1px at 50% 10%, rgba(255,215,0,0.5), transparent),
-
-    
-    radial-gradient(2px 2px at 20% 60%, rgba(255,215,0,0.7), transparent),
-    radial-gradient(2px 2px at 75% 25%, rgba(255,215,0,0.7), transparent),
-    radial-gradient(2px 2px at 40% 50%, rgba(255,215,0,0.7), transparent),
-
-    
-    radial-gradient(3px 3px at 65% 75%, rgba(255,215,0,0.9), transparent),
-    radial-gradient(3px 3px at 15% 40%, rgba(255,215,0,0.9), transparent);
+  background: radial-gradient(circle,
+    rgba(255,215,0,0.12),
+    transparent 65%);
 }
 
-
-.stars {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
+@keyframes gradientMove {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
-
-
-.stars::before {
-  content: "";
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  background: transparent;
-
-  box-shadow:
-    100px 200px #D3AF37, 300px 400px #D3AF37, 500px 150px #D3AF37,
-    800px 600px #D3AF37, 1200px 300px #D3AF37, 1600px 500px #D3AF37,
-    200px 900px #D3AF37, 700px 120px #D3AF37, 900px 800px #D3AF37,
-    1300px 200px #D3AF37, 1500px 700px #D3AF37, 50px 600px #D3AF37,
-    250px 100px #D3AF37, 450px 900px #D3AF37, 650px 300px #D3AF37,
-    850px 500px #D3AF37, 1050px 700px #D3AF37, 1250px 900px #D3AF37,
-    1450px 200px #D3AF37, 1650px 400px #D3AF37, 1850px 600px #D3AF37;
-}
-
-
-.stars::after {
-  content: "";
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: transparent;
-
-  box-shadow:
-    200px 300px rgba(255,215,0,0.9),
-    600px 700px rgba(255,215,0,0.9),
-    1000px 500px rgba(255,215,0,0.9),
-    1400px 800px rgba(255,215,0,0.9),
-    1700px 200px rgba(255,215,0,0.9);
-}
-
-.stars2 {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-}
-
-.stars2::before {
-  content: "";
-  position: absolute;
-  width: 2px;
-  height: 2px;
-  background: transparent;
-
-  box-shadow:
-    150px 350px #D3AF37,
-    450px 650px #D3AF37,
-    750px 250px #D3AF37,
-    1150px 550px #D3AF37,
-    1450px 150px #D3AF37,
-    1750px 450px #D3AF37;
-
-  animation: twinkle 7s infinite alternate;
-}
-
 
 .user-avatar {
   position: fixed;
@@ -118,7 +71,6 @@ body::after {
   box-shadow: 0 0 15px rgba(255,215,0,0.5);
 }
 
-
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -128,37 +80,31 @@ body::after {
   box-sizing: border-box;
 }
 
-
 .card {
   background: rgba(255,215,0,0.07);
   border: 2px solid #D3AF37;
   border-radius: 18px;
   padding: 18px;
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(8px);
   box-shadow: 0 0 20px rgba(255,215,0,0.15);
 
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;   
-  text-align: center;    
-
+  align-items: center;
   height: 140px;
 }
 
 .card h2 {
   font-size: 20px;
   margin: 0 0 8px 0;
-  text-align: center;
 }
 
 .status {
   font-size: 13px;
   opacity: 0.85;
   margin-bottom: 12px;
-  text-align: center;
 }
-
 
 button {
   background: #D3AF37;
@@ -172,10 +118,9 @@ button {
   font-weight: bold;
 }
 
-.card button {
-  padding: 8px 22px;
-  font-size: 13px;
-  border-radius: 10px;
+button:hover {
+  background: #ffd700;
+  transform: scale(1.05);
 }
 
 .title {
@@ -183,34 +128,6 @@ button {
   font-size: 42px;
   margin-top: 18px;
   letter-spacing: 4px;
-}
-
-button:hover {
-  background: #ffd700;
-  transform: scale(1.05);
-}
-
-body::after {
-  animation: twinkle 6s infinite alternate;
-}
-
-@keyframes twinkle {
-  from { opacity: 0.7; }
-  to   { opacity: 1; }
-}
-
-.stars::before {
-  animation: twinkle 3s infinite alternate;
-}
-
-.stars::after {
-  animation: twinkle 5s infinite alternate;
-}
-
-@keyframes twinkle {
-  0%   { opacity: 0.3; }
-  50%  { opacity: 1; }
-  100% { opacity: 0.4; }
 }
 
 .top-buttons {
@@ -221,7 +138,6 @@ body::after {
   gap: 12px;
 }
 
-
 .card.voted {
   border-color: #00ff9c;
   box-shadow:
@@ -229,22 +145,11 @@ body::after {
     0 0 28px rgba(0,255,156,0.35);
 }
 
-
 .card.not-voted {
   border-color: #ff3b3b;
   box-shadow:
     0 0 12px rgba(255,59,59,0.6),
     0 0 28px rgba(255,59,59,0.35);
-}
-
-.card.not-voted {
-  animation: pulseRed 3s infinite;
-}
-
-@keyframes pulseRed {
-  0%   { box-shadow: 0 0 8px rgba(255,59,59,0.4); }
-  50%  { box-shadow: 0 0 20px rgba(255,59,59,0.7); }
-  100% { box-shadow: 0 0 8px rgba(255,59,59,0.4); }
 }
 
 .card.with-logo {
@@ -257,18 +162,16 @@ body::after {
   left: 50px;
   top: 50%;
   transform: translateY(-50%);
-  height: 95px;           /* 🔥 większe */
+  height: 95px;
   opacity: 0.95;
   pointer-events: none;
   filter: drop-shadow(0 0 10px rgba(0,0,0,0.6));
 }
+
 </style>
 </head>
 
 <body>
-<div class="stars"></div>
-<div class="stars2"></div>
-
 
 <img id="avatar" class="user-avatar">
 
@@ -284,7 +187,6 @@ body::after {
 
 <h1 class="title">KATEGORIE</h1>
 
-
 <div id="categories" class="grid"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -297,7 +199,6 @@ const supabaseClient = createClient(
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ4YmR2d2p4dWRseHlibmZzdWduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzExODQyODEsImV4cCI6MjA4Njc2MDI4MX0.ZJG2DTwhcj8nG9eyUN1B3Zuf2IFIIZcq1rYpsYptrBk"
 );
 
-
 async function checkUser() {
   const { data: { user } } = await supabaseClient.auth.getUser();
 
@@ -309,7 +210,6 @@ async function checkUser() {
   document.getElementById("avatar").src =
     user.user_metadata.avatar_url;
 }
-
 
 async function loadCategories() {
   const { data: { user } } = await supabaseClient.auth.getUser();
@@ -328,31 +228,28 @@ async function loadCategories() {
 
   categories.forEach(category => {
     const voted = votes.some(v => v.category_id == category.id);
-
-    const div = document.createElement("div");
-    div.className = "card " + (voted ? "voted" : "not-voted");
-
     const isNXH = category.name === "NXH GRACZ ROKU";
 
-div.className = "card " + (voted ? "voted" : "not-voted") +
-                (isNXH ? " with-logo" : "");
+    const div = document.createElement("div");
+    div.className = "card " +
+                    (voted ? "voted" : "not-voted") +
+                    (isNXH ? " with-logo" : "");
 
-div.innerHTML = `
-  ${isNXH ? `<img src="NXH.png" class="logo-right">` : ""}
+    div.innerHTML = `
+      ${isNXH ? `<img src="NXH.png" class="logo-right">` : ""}
 
-  <h2>${category.name}</h2>
+      <h2>${category.name}</h2>
 
-  <div class="status">
-    ${voted ? "✔ Zagłosowano" : "❌ Nie zagłosowano"}
-  </div>
+      <div class="status">
+        ${voted ? "✔ Zagłosowano" : "❌ Nie zagłosowano"}
+      </div>
 
-  ${voted ? "" : `
-    <button onclick="goToVote(${category.id})">
-      Głosuj
-    </button>
-  `}
-`;
-
+      ${voted ? "" : `
+        <button onclick="goToVote(${category.id})">
+          Głosuj
+        </button>
+      `}
+    `;
 
     container.appendChild(div);
   });
@@ -362,11 +259,10 @@ function goToVote(categoryId) {
   window.location.href = "vote.html?category=" + categoryId;
 }
 
- 
 async function logout() { 
   await supabaseClient.auth.signOut();
   window.location.href = "index.html"; 
-  }
+}
 
 checkUser();
 loadCategories();
