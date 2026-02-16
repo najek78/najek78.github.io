@@ -246,6 +246,22 @@ body::after {
   50%  { box-shadow: 0 0 20px rgba(255,59,59,0.7); }
   100% { box-shadow: 0 0 8px rgba(255,59,59,0.4); }
 }
+
+.card.with-logo {
+  position: relative;
+  overflow: hidden;
+}
+
+.card.with-logo img.logo-right {
+  position: absolute;
+  left: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 95px;           /* 🔥 większe */
+  opacity: 0.95;
+  pointer-events: none;
+  filter: drop-shadow(0 0 10px rgba(0,0,0,0.6));
+}
 </style>
 </head>
 
@@ -316,17 +332,27 @@ async function loadCategories() {
     const div = document.createElement("div");
     div.className = "card " + (voted ? "voted" : "not-voted");
 
-    div.innerHTML = `
-      <h2>${category.name}</h2>
-      <div class="status">
-        ${voted ? "✔ Zagłosowano" : "❌ Nie zagłosowano"}
-      </div>
-      ${voted ? "" : `
-        <button onclick="goToVote(${category.id})">
-          Głosuj
-        </button>
-      `}
-    `;
+    const isNXH = category.name === "NXH GRACZ ROKU";
+
+div.className = "card " + (voted ? "voted" : "not-voted") +
+                (isNXH ? " with-logo" : "");
+
+div.innerHTML = `
+  ${isNXH ? `<img src="NXH.png" class="logo-right">` : ""}
+
+  <h2>${category.name}</h2>
+
+  <div class="status">
+    ${voted ? "✔ Zagłosowano" : "❌ Nie zagłosowano"}
+  </div>
+
+  ${voted ? "" : `
+    <button onclick="goToVote(${category.id})">
+      Głosuj
+    </button>
+  `}
+`;
+
 
     container.appendChild(div);
   });
@@ -348,4 +374,3 @@ loadCategories();
 
 </body>
 </html>
-
