@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<title>Podsumowanie</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+  margin:0;
+  background: radial-gradient(circle at center,#0b1b3a,#020817);
+  color:#D3AF37;
+  font-family:'Cinzel',serif;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+
+/* ⭐ TYTUŁ */
+h1{
+  margin-top:20px;
+  letter-spacing:4px;
+}
+
+/* 🏆 KARTY KATEGORII */
+.summary-card{
+  width:900px;
+  background:rgba(255,215,0,0.06);
+  border:2px solid #D3AF37;
+  border-radius:18px;
+  padding:18px;
+  margin-top:25px;
+  box-shadow:0 0 18px rgba(255,215,0,0.25);
+}
+
+/* NAZWA KATEGORII */
+.category-title{
+  font-size:40px;
+  font-weight:700;
+  letter-spacing:3px;
+  text-align:center;
+  margin-bottom:18px;
+
+  color:#FFD700;
+
+  text-shadow:
+    0 0 8px rgba(255,215,0,0.7),
+    0 0 18px rgba(255,215,0,0.5);
+}
+
+/* RANKING */
+.ranking-row{
+  display:flex;
+  justify-content:center;
+  gap:30px;
+}
+
+/* SLOT */
+.rank-slot{
+  text-align:center;
+}
+
+/* AVATAR */
+.rank-avatar{
+  width:80px;
+  border-radius:50%;
+  border:3px solid #D3AF37;
+  box-shadow:0 0 12px rgba(255,215,0,0.5);
+  margin-top:6px;
+}
+
+/* PRZYCISK */
+button{
+  background:#D3AF37;
+  color:#0b1b3a;
+  border:none;
+  padding:14px 36px;
+  border-radius:12px;
+  font-family:'Cinzel',serif;
+  font-weight:bold;
+  cursor:pointer;
+  margin:40px 0;
+}
+
+button:hover{
+  background:#ffd700;
+  transform:scale(1.05);
+}
+
+.summary-card{
+  width:900px;
+  background:rgba(255,215,0,0.06);
+  border:2px solid #D3AF37;
+  border-radius:18px;
+  padding:18px;
+  margin-top:25px;
+  box-shadow:0 0 18px rgba(255,215,0,0.25);
+
+  opacity:0;
+  transform:translateY(40px);
+  animation:cardAppear 0.7s ease forwards;
+}
+
+@keyframes cardAppear{
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<h1>TWOJE GŁOSY</h1>
+
+<div id="summary"></div>
+
+<button onclick="window.location.href='categories.html'">
+Powrót do kategorii
+</button>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const { createClient } = supabase;
+
+const supabaseClient = createClient(
+  "https://vxbdvwjxudlxybnfsugn.supabase.co",
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ4YmR2d2p4dWRseHlibmZzdWduIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzExODQyODEsImV4cCI6MjA4Njc2MDI4MX0.ZJG2DTwhcj8nG9eyUN1B3Zuf2IFIIZcq1rYpsYptrBk"
+);
+
+async function loadSummary() {
+
+  const { data: { user } } = await supabaseClient.auth.getUser();
+
+  const { data: votes } = await supabaseClient
+    .from("votes")
+    .select("*")
+    .eq("user_id", user.id);
+
+  const { data: categories } = await supabaseClient
+    .from("categories")
+    .select("*");
+
+  const { data: nominees } = await supabaseClient
+    .from("nominees")
+    .select("*");
+
+  const container = document.getElementById("summary");
+  container.innerHTML = "";
+
+  votes.forEach((v, index) => {
+
+  const category = categories.find(c => c.id == v.category_id);
+
+  const getNominee = (id) =>
+    nominees.find(n => n.id == id);
+
+  const ranks = [
+    getNominee(v.rank1),
+    getNominee(v.rank2),
+    getNominee(v.rank3),
+    getNominee(v.rank4),
+    getNominee(v.rank5)
+  ];
+
+  const card = document.createElement("div");
+  card.className = "summary-card";
+
+  // ⭐ OPÓŹNIENIE ANIMACJI
+  card.style.animationDelay = (index * 0.2) + "s";
+
+
+    let rankingHTML = "";
+
+    ranks.forEach((n,i)=>{
+      if(!n) return;
+
+      rankingHTML += `
+        <div class="rank-slot">
+          <div>Miejsce ${i+1}</div>
+          <img src="${n.avatar_url}" class="rank-avatar">
+          <div>${n.name}</div>
+        </div>
+      `;
+    });
+
+    card.innerHTML = `
+      <div class="category-title">${category.name}</div>
+
+      <div class="ranking-row">
+        ${rankingHTML}
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+loadSummary();
+</script>
+
+</body>
+</html>
