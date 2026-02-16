@@ -17,13 +17,13 @@ body{
   align-items:center;
 }
 
-/* ⭐ TYTUŁ */
+
 h1{
   margin-top:20px;
   letter-spacing:4px;
 }
 
-/* 🏆 KARTY KATEGORII */
+
 .summary-card{
   width:900px;
   background:rgba(255,215,0,0.06);
@@ -34,7 +34,7 @@ h1{
   box-shadow:0 0 18px rgba(255,215,0,0.25);
 }
 
-/* NAZWA KATEGORII */
+
 .category-title{
   font-size:40px;
   font-weight:700;
@@ -49,19 +49,19 @@ h1{
     0 0 18px rgba(255,215,0,0.5);
 }
 
-/* RANKING */
+
 .ranking-row{
   display:flex;
   justify-content:center;
   gap:30px;
 }
 
-/* SLOT */
+
 .rank-slot{
   text-align:center;
 }
 
-/* AVATAR */
+
 .rank-avatar{
   width:80px;
   border-radius:50%;
@@ -70,7 +70,7 @@ h1{
   margin-top:6px;
 }
 
-/* PRZYCISK */
+
 button{
   background:#D3AF37;
   color:#0b1b3a;
@@ -170,7 +170,7 @@ async function loadSummary() {
   const card = document.createElement("div");
   card.className = "summary-card";
 
-  // ⭐ OPÓŹNIENIE ANIMACJI
+  
   card.style.animationDelay = (index * 0.2) + "s";
 
 
@@ -205,3 +205,4 @@ loadSummary();
 
 </body>
 </html>
+
