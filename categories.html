@@ -25,7 +25,7 @@ body {
   );
 
   background-size: 400% 400%;
-  animation: gradientMove 18s ease infinite;
+  animation: gradientMove 10s ease infinite;
 }
 
 body::before {
@@ -162,10 +162,45 @@ button:hover {
   left: 50px;
   top: 50%;
   transform: translateY(-50%);
-  height: 95px;
+  height: 140px;
   opacity: 0.95;
   pointer-events: none;
   filter: drop-shadow(0 0 10px rgba(0,0,0,0.6));
+}
+
+.card {
+  position: relative;
+}
+
+.mini-nominees {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  display: grid;
+  grid-template-columns: repeat(2, 46px);
+  grid-template-rows: repeat(3, 46px);
+  gap: 8px;
+
+  pointer-events: none;
+}
+
+.mini-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 2px solid #D3AF37;
+  object-fit: cover;
+
+  box-shadow:
+    0 0 10px rgba(255,215,0,0.6),
+    0 0 22px rgba(255,215,0,0.25);
+}
+
+.mini-avatar.fifth {
+  grid-column: 1 / span 2;
+  justify-self: center;
 }
 
 </style>
@@ -223,20 +258,43 @@ async function loadCategories() {
     .select("*")
     .eq("user_id", user.id);
 
+  const { data: nominees } = await supabaseClient
+    .from("nominees")
+    .select("*");
+
   const container = document.getElementById("categories");
   container.innerHTML = "";
 
   categories.forEach(category => {
+
     const voted = votes.some(v => v.category_id == category.id);
     const isNXH = category.name === "NXH GRACZ ROKU";
 
+    const categoryNominees = nominees
+      .filter(n => n.category_id == category.id)
+      .slice(0, 5);
+
+    let miniHTML = `<div class="mini-nominees">`;
+
+    categoryNominees.forEach((n, i) => {
+      miniHTML += `
+        <img src="${n.avatar_url}"
+             class="mini-avatar ${i === 4 ? 'fifth' : ''}">
+      `;
+    });
+
+    miniHTML += `</div>`;
+
     const div = document.createElement("div");
+
     div.className = "card " +
                     (voted ? "voted" : "not-voted") +
                     (isNXH ? " with-logo" : "");
 
     div.innerHTML = `
       ${isNXH ? `<img src="NXH.png" class="logo-right">` : ""}
+
+      ${miniHTML}
 
       <h2>${category.name}</h2>
 
